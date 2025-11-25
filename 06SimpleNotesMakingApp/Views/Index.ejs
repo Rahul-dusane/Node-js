@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <!--
+        -> This is Index.ejs for SimpleNotesMakingApp .
+        -> It receives `files` array from server and renders the list of notes .
+        -> Each file has link to "/files/<filename>" to read full content in show page .
+        -> The form posts to "/create" to create new note (title used as filename, description as content) .
+    -->
+
+    <!-- <h2 class="w-full text-pink-500 text-xl">hey</h2> -->
+    <div class="main w-full min-h-screen">
+        <div class="form p-10 text-black">
+            <form action="/create" method="post">
+                <input class="block w-full rounded-md outline-none px-5 py-2 bg-zinc-900 text-white" type="text"
+                    name="title" placeholder="Title goes here" />
+                <textarea class="block w-fll rounded-md outline-none px-5 py-2 mt-2 bg-zinc-900 text-white resize-none"
+                    name="discription" placeholder="Write your task details"></textarea>
+                <input class="mt-2 bg-blue-600 px-5 py-2 rounded-md" type="submit" value="Create task">
+            </form>
+        </div>
+        <div class="tasks p-10 flex gap-3 flex-wrap">
+
+            <% if(files.length > 0){ %>
+                <% files.forEach(function(val){ %>
+                    <div class="tasks w-72 m-10 px-3 py-4 bg-zinc-800 rounded-md">
+                        <h1 class="text-white text-xl tracking-tighter"><%= val %></h1>
+                        <div class="flex w-full justify-between items-center mt-3">
+                            <a class="text-blue-500 inline-block" href="/files/<%= val %>">Read more</a>
+                            <a class="text-white" href="/edit/<%= val %>">Edit</a>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <h3 class="text-zinc-600">No task yet .</h3>
+            <% } %>
+        </div>
+    </div>
+
+</body>
+
+</html>

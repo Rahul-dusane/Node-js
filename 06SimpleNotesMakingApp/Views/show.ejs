@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+
+    <!-- <h2 class="w-full text-pink-500 text-xl">hey</h2> -->
+
+    <!--
+        -> This is show.ejs for SimpleNotesMakingApp .
+        -> It receives `filename` and `data` from server and shows file content .
+        -> The link above go back to home and show list of notes .
+    -->
+    <div class="main w-full min-h-screen p-10 text-zinc-600">
+        <a class="text-blue-500 inline-block mb-10s" href="/">Go Back to Home</a>
+        <h1 class="text-3xl tracking-tighter"><%= filename %></h1>
+        <p class="text-xl mt-2 font-light"><%= data %></p>
+    </div>
+
+</body>
+
+</html>
