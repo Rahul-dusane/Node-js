@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascripts/script.js"></script>
+    
+
+</head>
+<body>
+
+    <!-- 
+        
+        ->  This File is ejs file means embeded java script 
+            and it is used for creating the dynamic web pagess
+        
+        -> To create the ejs file we use the .ejs extension , it is
+           mainly used to render the server view . to use this we install
+           the ejs using the npm i ejs module .
+
+        -> To run the ejs module we have to render the page means when we pass the response 
+           to the browser at that time the inseted of using the send keyword we use the rander 
+           property .
+
+        -> eg.,app.use(express.static(path.join(__dirname,"public")));
+
+    -->
+    
+
+    <h1>Hey <%= 2+2%></h1>
+
+</body>
+</html>
