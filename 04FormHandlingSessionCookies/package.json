@@ -1,0 +1,14 @@
+{
+  "name": "04formhandlingsessioncookies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rahul dusane",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7"
+  }
+}
