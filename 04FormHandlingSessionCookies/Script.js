@@ -17,7 +17,32 @@
 
 // -> Once the session is completed that key would be distroyed and will never used agin for new session .
 
+// -> The cookies are not asked by the server but browser automatically include it with the each request .
 
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const app = express();
+
+app.use(cookieParser()); // the cookieParser is the middleware used to read the cookies easyly in the express .
+
+
+// In express the cookies are having the multipla flages .
+// 1. httponly :- 
+//      syntext:- res.cookie(cookie_name,cookie_value,{httpOnly:true});
+// -> this flage will prevent from showing/reading the cookies in the browser .
+// when to use :- This flag can be use be we want the cookies can readed by the 
+//                server on each request of browser , like for a session . 
+app.get("/",(req,res) => {
+    res.cookie("age","24",{httpOnly:true});   
+    res.send("Cookies are set .");
+});
+
+app.get("/read",(req,res) => {
+    res.send(req.cookies);
+    console.log(req.cookies);
+});
+
+app.listen(3000);
 
 // express.json() middleware use :- 
 
