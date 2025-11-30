@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body>
+
+    <div class="w-full min-h-screen font-bold p-10">
+        
+        <div class="w-full flex justify-end ">
+            <a href="/logout" class="bg-red-500 rounded-md text-white px-3 py-2 text-sm mb-5 inline-block">Logout</a>
+        </div>
+
+        <h2 class="text-3xl mb-5 font-bold"><span class="font-light"></span><%= user.username %> Profile</h2>
+        <h2 class="mb-5">You can create a new post</h2>
+        
+        <form action="/post" method="post">
+            <textarea placeholder="What`s in the mind ?" class="w-1/3 p-3 outline-none  resize-none bg-transparent border-2 border-zinc-800 rounded-md bg-zinc-800 text-white" name="content" ></textarea>
+            <input type="submit" class="px-3 py-2 bg-blue-500 text-white font-bold block rounded-md mt-2 w-52" value="Create Post" />
+        </form>
+
+        <div class="posts mt-20">
+            <h3 class="text-zinc-800">Your Posts</h3>
+            <div class="postcontainer mt-5">
+                
+                <div class="post w-1/3 p-4 mt-4 rounded-md border-[1px] border-zinc-800 bg-zinc-800 text-white">
+                    <h4 class="text-blue-500 mb-2">@someusername</h4>
+                    <p class="text-sm tracking-tight"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum omnis voluptatem
+                                accusantium nemo perspiciatis delectus atque autem! Voluptatum tenetur beatae unde
+                                aperiam, repellat expedita consequatur! Officiis id consequatur atque doloremque!</p>
+
+                    <div class="btns flex gap-4 mt-5">
+                        <a href="" class="text-blue-500 font-bold">Like</a>
+                        <a href="" class="text-zinv-600">edit</a>
+                    </div>            
+                </div>
+
+                <div class="post w-1/3 p-4 mt-4 rounded-md border-[1px] border-zinc-800 bg-zinc-800 text-white">
+                    <h4 class="text-blue-500 mb-2">@someusername</h4>
+                    <p class="text-sm tracking-tight"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum omnis voluptatem
+                                accusantium nemo perspiciatis delectus atque autem! Voluptatum tenetur beatae unde
+                                aperiam, repellat expedita consequatur! Officiis id consequatur atque doloremque!</p>
+
+                    <div class="btns flex gap-4 mt-5">
+                        <a href="" class="text-blue-500 font-bold">Like</a>
+                        <a href="" class="text-zinv-600">edit</a>
+                    </div>            
+                </div>
+
+                <% user.posts.reverse().forEach(function(post){ %>
+                  
+                    <div class="post w-1/3 p-4 mt-4 rounded-md border-[1px] border-zinc-800 bg-zinc-800 text-white">
+                        <h4 class="text-blue-500 mb-2">@<%= user.name %></h4>
+                        <p class="text-sm tracking-tight"> 
+                            <%= post.content %>
+                        </p>
+                        
+                        <small class="mt-3 inline-block text-zinc-500"><%= post.likes.length %> likes</small>
+
+                        <div class="btns flex gap-4">
+                            <a href="/like/<%= post._id %>" class="text-blue-500 font-bold">
+                                <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+                            </a>
+                            <a href="/edit/<%= post._id %>" class="text-zinv-600">edit</a>
+                        </div>            
+                    </div>
+                    
+                <% }) %>
+
+            </div>
+        </div>
+    
+    </div>
+    
+</body>
+</html>
