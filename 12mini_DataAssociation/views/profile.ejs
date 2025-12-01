@@ -15,8 +15,14 @@
             <a href="/logout" class="bg-red-500 rounded-md text-white px-3 py-2 text-sm mb-5 inline-block">Logout</a>
         </div>
 
-        <h2 class="text-3xl mb-5 font-bold"><span class="font-light"></span><%= user.username %> Profile</h2>
-        <h2 class="mb-5">You can create a new post</h2>
+        <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-md overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>" alt="" />
+            </div>
+            <h2 class="text-3xl mb-5 font-bold"><span class="font-light"></span><%= user.name %>, Profile</h2>
+        </div>
+
+        <h2 class="mb-5 mt-3">You can create a new post</h2>
         
         <form action="/post" method="post">
             <textarea placeholder="What`s in the mind ?" class="w-1/3 p-3 outline-none  resize-none bg-transparent border-2 border-zinc-800 rounded-md bg-zinc-800 text-white" name="content" ></textarea>

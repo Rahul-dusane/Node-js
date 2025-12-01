@@ -7,12 +7,31 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const postModel = require("./models/post");
 const user = require("./models/user");
+const crypto = require("crypto");
+// const multer = require("multer");
+// const multerconfig = require("./config/multerconfig");
+const upload = require("./config/multerconfig");
 
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './public/images/uploads')
+//   },
+//   filename: function (req, file, cb) {
+//     crypto.randomBytes(12,function(err,bytes){
+//         const fn = bytes.toString('hex') + path.extname(file.originalname);
+//         cb(null, fn)
+//     })    
+   
+//   }
+// })
+
+// const upload = multer({ storage: storage });
 
 app.get("/", function (req, res) {
     res.render("index.ejs");
@@ -159,5 +178,24 @@ app.post("/update/:id", isLogeedIn, async function (req, res) {
     }
 
 });
+
+app.get("/profile/upload", function (req, res) {
+    res.render("profileupload.ejs");
+});
+
+app.post("/upload", isLogeedIn,upload.single("image") ,async function (req, res) {
+   let user = await userModel.findOne({email:req.user.email});
+   user.profilepic = req.file.filename;
+   await user.save();
+   res.redirect("/profile");
+});
+
+// app.get("/test", function (req, res) {
+//     res.render("test.ejs");
+// });
+
+// app.post("/upload", upload.single("image") ,function (req, res) {
+//     console.log(req.file);
+// });
 
 app.listen(3000);
