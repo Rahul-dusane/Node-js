@@ -1,0 +1,23 @@
+{
+  "name": "14derizzle_orm_mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --env-file=.env --watch app.js",
+    "start": "node --env-file=.env app.js",
+    "db:generate" : "drizzle-kit generate",
+    "db:migrate" : "drizzle-kit migrate",
+    "db:studio" : "drizzle-kit studio"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "drizzle-orm": "^0.45.1",
+    "mysql2": "^3.15.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.8"
+  }
+}
