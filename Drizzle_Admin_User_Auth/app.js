@@ -9,17 +9,27 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
+
 const __filename = fileURLToPath(import.meta.url);
+
 const __dirname = path.dirname(__filename);
+
 dotenv.config();
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+
+
+// Static files
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: process.env.Express_Session_Secret,
 }));
+
 app.use(express.static(path.join(__dirname,"public")));
 
 app.use("/admin",adminRouter);
@@ -27,6 +37,7 @@ app.use("/user",userRouter);
 
 app.get("/",function(req,res){
     res.send("hey");
+    
 });
 
 app.listen(3000);
