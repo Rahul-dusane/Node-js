@@ -38,24 +38,7 @@ const userImageStorage = multer.diskStorage({
 export const userImageUpload = multer({ storage: userImageStorage });
 
 
-
-//admin multer
-
-// const adminImageStorage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, "public/image/adminimage");
-//     },
-//     filename: (req, file, cb) => {
-//         crypto.randomBytes(12, (err, bytes) => {
-//             if (err) return cb(err);
-//             cb(null, bytes.toString("hex") + path.extname(file.originalname));
-//         });
-//     },
-// });
-
-// export const adminImageStorage = multer({ storage: adminImageStorage });
-
-
+// Admin image multer
 
 const adminImageDiskStorage = multer.diskStorage({
     destination: (req, file, cb) => {
