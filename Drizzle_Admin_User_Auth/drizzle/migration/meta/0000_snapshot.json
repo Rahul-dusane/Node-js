@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "89a76129-cf6c-428a-b7d9-28d3f95b957e",
+  "id": "7b024737-cbcb-4c31-9179-9fb787857902",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "admins": {
@@ -95,6 +95,96 @@
           ]
         }
       },
+      "checkConstraint": {}
+    },
+    "orders": {
+      "name": "orders",
+      "columns": {
+        "oid": {
+          "name": "oid",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "uid": {
+          "name": "uid",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'pending'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "orders_uid_users_id_fk": {
+          "name": "orders_uid_users_id_fk",
+          "tableFrom": "orders",
+          "tableTo": "users",
+          "columnsFrom": [
+            "uid"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "orders_product_id_product_id_fk": {
+          "name": "orders_product_id_product_id_fk",
+          "tableFrom": "orders",
+          "tableTo": "product",
+          "columnsFrom": [
+            "product_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "orders_oid": {
+          "name": "orders_oid",
+          "columns": [
+            "oid"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
       "checkConstraint": {}
     },
     "product": {
@@ -192,6 +282,66 @@
         }
       },
       "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "seller": {
+      "name": "seller",
+      "columns": {
+        "sid": {
+          "name": "sid",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "uid": {
+          "name": "uid",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "seller_uid_users_id_fk": {
+          "name": "seller_uid_users_id_fk",
+          "tableFrom": "seller",
+          "tableTo": "users",
+          "columnsFrom": [
+            "uid"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "seller_sid": {
+          "name": "seller_sid",
+          "columns": [
+            "sid"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "seller_uid_unique": {
+          "name": "seller_uid_unique",
+          "columns": [
+            "uid"
+          ]
+        }
+      },
       "checkConstraint": {}
     },
     "users": {

@@ -1,7 +1,9 @@
 // controllers/uploadController.js
 import { db } from "../config/db.js";
+import { eq } from "drizzle-orm";
 import { productTable } from "../src/db/schema/product.js"; // make sure you have a product table
 import { productSchema } from "../validator/productValidator.js"; // optional, if you want validation
+import { sellerTable } from "../src/db/schema/seller.js";
 
 export const uploadProduct = async (req, res) => {
     try {
@@ -10,6 +12,8 @@ export const uploadProduct = async (req, res) => {
         }
 
         const user_id = req.user.id; // from logged-in user
+
+        
         const { name, description, price } = req.body;
 
         if (!name || !description || !price) {
@@ -26,6 +30,16 @@ export const uploadProduct = async (req, res) => {
         });
 
         res.status(200).json({ success: true, message: "Product uploaded successfully" });
+
+        let sellerexist = await db.select().from(sellerTable).where(
+            (eq(sellerTable.uid,user_id))
+        )
+
+        if(sellerexist.length === 0){
+            let seller = await db.insert(sellerTable).values({
+                uid : user_id
+            })
+        }
 
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });

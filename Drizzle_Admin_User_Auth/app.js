@@ -3,7 +3,8 @@ import express from "express";
 import { db } from "./config/db.js";
 import session from "express-session";
 import adminRouter from "./routes/adminRouter.js";
-import userRouter from "./routes/userRouter.js"; 
+import userRouter from "./routes/userRouter.js";
+import productRouter from "./routes/productRouter.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname,"public")));
 
 app.use("/admin",adminRouter);
 app.use("/user",userRouter);
+// app.use("/products",productRouter);
 
 app.get("/",function(req,res){
     res.send("hey");

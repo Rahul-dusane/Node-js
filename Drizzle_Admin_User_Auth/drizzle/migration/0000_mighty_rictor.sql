@@ -12,6 +12,16 @@ CREATE TABLE `admins` (
 	CONSTRAINT `admins_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
+CREATE TABLE `orders` (
+	`oid` serial AUTO_INCREMENT NOT NULL,
+	`uid` bigint unsigned NOT NULL,
+	`product_id` bigint unsigned NOT NULL,
+	`status` varchar(20) NOT NULL DEFAULT 'pending',
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `orders_oid` PRIMARY KEY(`oid`)
+);
+--> statement-breakpoint
 CREATE TABLE `product` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`userId` bigint unsigned NOT NULL,
@@ -23,6 +33,14 @@ CREATE TABLE `product` (
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
 	CONSTRAINT `product_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `seller` (
+	`sid` serial AUTO_INCREMENT NOT NULL,
+	`uid` bigint unsigned NOT NULL,
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `seller_sid` PRIMARY KEY(`sid`),
+	CONSTRAINT `seller_uid_unique` UNIQUE(`uid`)
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
@@ -50,7 +68,10 @@ CREATE TABLE `user_verifications` (
 	CONSTRAINT `user_verifications_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+ALTER TABLE `orders` ADD CONSTRAINT `orders_uid_users_id_fk` FOREIGN KEY (`uid`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `orders` ADD CONSTRAINT `orders_product_id_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `product` ADD CONSTRAINT `product_userId_users_id_fk` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `seller` ADD CONSTRAINT `seller_uid_users_id_fk` FOREIGN KEY (`uid`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `users` ADD CONSTRAINT `users_curresponding_admin_id_admins_id_fk` FOREIGN KEY (`curresponding_admin_id`) REFERENCES `admins`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `user_verifications` ADD CONSTRAINT `user_verifications_user_id_users_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `user_verifications` ADD CONSTRAINT `user_verifications_admin_id_admins_id_fk` FOREIGN KEY (`admin_id`) REFERENCES `admins`(`id`) ON DELETE no action ON UPDATE no action;
