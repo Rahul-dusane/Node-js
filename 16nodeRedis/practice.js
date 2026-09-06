@@ -31,6 +31,10 @@ const product = await client.hGetAll("product:99");
 console.log(`Product: ${product.title} | Price: ${product.priceL} | In Stock: ${product.inStock}`);
 
 
+// ==========================================
+// CHALLENGE 3: Printing Queue
+// ==========================================
+// Clean up old list data first
 await client.del("print_queue");
 
 await client.lPush("print_queue", "document1.pdf");
